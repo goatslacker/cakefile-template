@@ -24,8 +24,8 @@ build = (watch, callback) ->
   coffee.on 'exit', (status) -> callback?() if status is 0
 
 spec = (callback) ->
-  options = ['spec', '--coffee']
-  spec = spawn 'jasmine-node', options
+  options = ['--spec']
+  spec = spawn 'vows', options
   spec.stdout.on 'data', (data) -> print data.toString()
   spec.stderr.on 'data', (data) -> log data.toString(), red
   spec.on 'exit', (status) -> callback?() if status is 0
@@ -43,5 +43,5 @@ task 'docs', 'Generate annotated source code with Docco', ->
 task 'build', ->
   build -> log ":)", green
 
-task 'spec', 'Run Jasmine-Node', ->
+task 'spec', 'Run Vows', ->
   build -> spec -> log ":)", green
